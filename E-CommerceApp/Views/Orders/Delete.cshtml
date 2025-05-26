@@ -1,0 +1,40 @@
+﻿@model E_CommerceApp.Models.Order
+
+@{
+    ViewData["Title"] = "Delete Order";
+}
+
+<h1 class="text-light mb-4">🗑️ Delete Order</h1>
+
+<div class="alert alert-warning text-dark rounded-4 shadow-sm">
+    <h4 class="alert-heading">⚠️ Are you sure you want to delete this order?</h4>
+    <p class="mb-0">This action cannot be undone.</p>
+</div>
+
+<div class="card bg-dark text-light shadow rounded-4 mt-4">
+    <div class="card-body">
+        <h5 class="card-title text-danger-emphasis">Order Details</h5>
+        <hr class="border-secondary" />
+
+        <dl class="row">
+            <dt class="col-sm-3">Customer Name</dt>
+            <dd class="col-sm-9">@Model.CustomerName</dd>
+
+            <dt class="col-sm-3">Customer Email</dt>
+            <dd class="col-sm-9">@Model.CustomerEmail</dd>
+
+            <dt class="col-sm-3">Order Date</dt>
+            <dd class="col-sm-9">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <form asp-action="Delete" class="mt-4">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger me-2">
+                🗑️ Delete
+            </button>
+            <a asp-action="Index" class="btn btn-outline-light">
+                ⬅️ Back to List
+            </a>
+        </form>
+    </div>
+</div>

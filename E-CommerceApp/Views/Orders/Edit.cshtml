@@ -1,0 +1,64 @@
+﻿@model E_CommerceApp.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-light mb-4">Edit Order</h1>
+
+<div class="bg-dark p-4 rounded shadow-lg">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="CustomerName" class="form-label text-light"></label>
+            <input asp-for="CustomerName" class="form-control bg-secondary text-white border-0" />
+            <span asp-validation-for="CustomerName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CustomerEmail" class="form-label text-light"></label>
+            <input asp-for="CustomerEmail" class="form-control bg-secondary text-white border-0" />
+            <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="OrderDate" class="form-label text-light"></label>
+            <input asp-for="OrderDate" class="form-control bg-secondary text-white border-0" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-light">Products in Order</label>
+            <ul class="list-group">
+                @foreach (var cartItem in Model.CartItems)
+                {
+                    <li class="list-group-item bg-secondary text-white border-0 d-flex justify-content-between">
+                        <span>
+                            <strong>@cartItem.Product.Name</strong>
+                            (@cartItem.Quantity × @string.Format("{0:C}", cartItem.Product.Price))
+                        </span>
+                        <span>
+                            Total: @string.Format("{0:C}", cartItem.Quantity * cartItem.Product.Price)
+                        </span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-outline-light">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save"></i> Save
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Welcome to TechZone</h1>
+        <p class="lead">Your trusted store for IT, computers, and high-performance components.</p>
+        <p>Discover the latest in hardware, exclusive deals, and everything you need to build your ideal PC.</p>
+    </div>
+
+    <!-- Section 1: Latest Deals -->
+    <section class="mb-5">
+        <h2 class="mb-3">🔥 Latest Deals</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img src="/images/gpu.jpg" class="card-img-top" alt="Graphics Card">
+                    <div class="card-body">
+                        <h5 class="card-title text-black">NVIDIA RTX 4070</h5>
+                        <p class="card-text text-black-50">Next-gen graphics power with a special discount.</p>
+                        <a href="/Products" class="btn btn-primary">View Offer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img src="/images/ssd.jpg" class="card-img-top" alt="NVMe SSD">
+                    <div class="card-body">
+                        <h5 class="card-title text-black">1TB NVMe SSD</h5>
+                        <p class="card-text text-black-50">Ultra-fast performance for your games and tasks.</p>
+                        <a href="/Products" class="btn btn-primary">View Offer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Featured Components -->
+    <section class="mb-5">
+        <h2 class="mb-3">⭐ Featured Components</h2>
+        <ul class="list-group">
+            <li class="list-group-item">AMD Ryzen 7 7800X3D Processor</li>
+            <li class="list-group-item">ASUS TUF Gaming X670E Motherboard</li>
+            <li class="list-group-item">32GB DDR5 RAM</li>
+            <li class="list-group-item">850W Modular Power Supply</li>
+        </ul>
+    </section>
+
+    <!-- Section 3: New Releases -->
+    <section class="mb-5">
+        <h2 class="mb-3">🚀 New Releases</h2>
+        <div class="alert alert-info">
+            <strong>Now Available:</strong> 14th Gen Intel Core i9. Get yours today!
+        </div>
+        <p>Check out our updated catalog with the latest in computing technology.</p>
+        <a href="/Products" class="btn btn-outline-primary">Browse Products</a>
+    </section>
+</div>
+
+<style>
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>

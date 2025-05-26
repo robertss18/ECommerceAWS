@@ -1,0 +1,86 @@
+﻿@model IEnumerable<E_CommerceApp.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-light">Orders</h1>
+
+    <section class="mb-4 p-4 bg-secondary bg-opacity-75 rounded text-light">
+        <p class="fs-5">
+            Here you can find all the orders placed by our customers, including detailed information about the products purchased and the quantities ordered.
+            Manage orders efficiently and keep track of your sales easily.
+        </p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-dark btn-sm mt-3">
+            ← Back to Home
+        </a>
+    </section>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle table-dark">
+            <thead class="table-secondary text-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.First().CustomerName)</th>
+                    <th>@Html.DisplayNameFor(m => m.First().CustomerEmail)</th>
+                    <th>@Html.DisplayNameFor(m => m.First().OrderDate)</th>
+                    <th>Products</th>
+                    <th style="width: 150px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <td class="text-light">@order.CustomerName</td>
+                            <td>
+                                <span data-bs-toggle="tooltip" title="@order.CustomerEmail" class="text-truncate d-block text-light" style="max-width: 180px; cursor: help;">
+                                    @order.CustomerEmail
+                                </span>
+                            </td>
+                            <td class="text-light">@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <ul class="mb-0 ps-3 text-light">
+                                    @foreach (var item in order.CartItems)
+                                    {
+                                        <li>
+                                            @item.Product.Name - @item.Quantity × @string.Format("{0:C}", item.Product.Price)
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@order.Id" class="btn btn-sm btn-warning m-1" title="Edit">
+                                    <i class="bi bi-pencil-square">  Edit</i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-info m-1" title="Details">
+                                    <i class="bi bi-info-circle">  Details</i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@order.Id" class="btn btn-sm btn-danger m-1" title="Delete">
+                                    <i class="bi bi-trash">  Delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-light">No orders found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

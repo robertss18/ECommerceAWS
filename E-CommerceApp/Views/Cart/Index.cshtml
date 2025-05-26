@@ -1,0 +1,98 @@
+﻿@model IEnumerable<E_CommerceApp.Models.CartItem>
+
+@{
+    decimal total = Model.Sum(item => item.Product.Price.GetValueOrDefault() * item.Quantity);
+    decimal iva = total * 0.21m;
+    decimal totalConIva = total + iva;
+}
+
+<h2 class="mb-4 text-white">Your Shopping Cart</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info bg-secondary text-white" role="alert">
+        Your cart is empty. Start adding amazing products now!
+    </div>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-outline-light">
+        Browse Products
+    </a>
+}
+else
+{
+    <table class="table table-dark table-striped align-middle">
+        <thead>
+            <tr>
+                <th class="text-white">Product</th>
+                <th class="text-white text-end">Price</th>
+                <th class="text-white text-center">Quantity</th>
+                <th class="text-white text-end">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-white">@item.Product.Name</td>
+                    <td class="text-white text-end">@item.Product.Price.GetValueOrDefault().ToString("C")</td>
+                    <td class="text-white text-center">@item.Quantity</td>
+                    <td class="text-white text-end">@(item.Product.Price.GetValueOrDefault() * item.Quantity).ToString("C")</td>
+                    <td>
+                        <form asp-action="Delete" method="post" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove Item">
+                                🗑️ Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end mb-3 text-white">
+        <div class="me-4 text-end">
+            <p class="mb-1"><strong>Subtotal:</strong> @total.ToString("C")</p>
+            <p class="mb-1"><strong>VAT (21%):</strong> @iva.ToString("C")</p>
+            <h5><strong>Total:</strong> @totalConIva.ToString("C")</h5>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+            Proceed to Checkout
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <form asp-controller="Orders" asp-action="Create" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="checkoutModalLabel">Confirm Your Order</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="CustomerName" class="form-label">Name</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="CustomerName" name="CustomerName" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="CustomerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control bg-secondary text-white border-0" id="CustomerEmail" name="CustomerEmail" required />
+                        </div>
+                        <hr class="border-light" />
+                        <p><strong>Subtotal:</strong> @total.ToString("C")</p>
+                        <p><strong>IVA (21%):</strong> @iva.ToString("C")</p>
+                        <p><strong>Total:</strong> @totalConIva.ToString("C")</p>
+                        <input type="hidden" name="OrderDate" value="@DateTime.UtcNow.ToString("o")" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

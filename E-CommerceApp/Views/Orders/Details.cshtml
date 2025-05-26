@@ -1,0 +1,57 @@
+﻿@model E_CommerceApp.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h1 class="text-light mb-4">📦 Order Details</h1>
+
+<div class="card bg-dark text-light shadow rounded-4">
+    <div class="card-body">
+        <h4 class="card-title text-primary-emphasis">🧾 Order #@Model.Id</h4>
+        <hr class="border-secondary" />
+
+        <dl class="row">
+            <dt class="col-sm-3">Customer Name</dt>
+            <dd class="col-sm-9">@Model.CustomerName</dd>
+
+            <dt class="col-sm-3">Customer Email</dt>
+            <dd class="col-sm-9">@Model.CustomerEmail</dd>
+
+            <dt class="col-sm-3">Order Date</dt>
+            <dd class="col-sm-9">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <h5 class="mt-4 text-info">🛒 Products in this order</h5>
+        <table class="table table-dark table-striped table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price (Unit)</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@string.Format("{0:C}", item.Product.Price)</td>
+                        <td>@item.Quantity</td>
+                        <td>@string.Format("{0:C}", item.Product.Price * item.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-primary me-2">
+        ✏️ Edit
+    </a>
+    <a asp-action="Index" class="btn btn-outline-light">
+        ⬅️ Back to List
+    </a>
+</div>

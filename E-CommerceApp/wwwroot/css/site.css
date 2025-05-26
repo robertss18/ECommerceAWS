@@ -1,0 +1,59 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-image: url('/images/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Añade un fondo oscuro semitransparente al contenido principal */
+main {
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro translúcido */
+    color: white; /* Texto blanco */
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+/* Mejora la legibilidad del texto con sombra */
+h1, h2, h3, p, a, li, span {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.bg-glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    color: #333 !important;
+    transition: color 0.3s ease;
+}
+
+    .navbar .nav-link:hover {
+        color: #0d6efd !important; /* Bootstrap primary */
+    }
+
+
